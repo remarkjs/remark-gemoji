@@ -1,0 +1,60 @@
+{
+  "name": "remark-gemoji",
+  "version": "0.0.0",
+  "description": "Gemoji short-code support in remark",
+  "license": "MIT",
+  "keywords": [
+    "github",
+    "gemoji",
+    "emoji",
+    "short-code",
+    "shortcode",
+    "remark"
+  ],
+  "dependencies": {
+    "gemoji": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/remark-gemoji.git"
+  },
+  "bugs": "https://github.com/wooorm/remark-gemoji/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "eslint": "^2.0.0",
+    "esmangle": "^1.0.0",
+    "istanbul": "^0.4.0",
+    "jscs": "^2.0.0",
+    "jscs-jsdoc": "^1.0.0",
+    "remark": "^4.0.0",
+    "remark-comment-config": "^3.0.0",
+    "remark-github": "^4.0.1",
+    "remark-license": "^2.0.0",
+    "remark-lint": "^3.0.0",
+    "remark-toc": "^3.0.0",
+    "remark-usage": "^3.0.0",
+    "remark-validate-links": "^3.0.0",
+    "remark-yaml-config": "^3.0.0",
+    "tape": "^4.0.0",
+    "unist-util-inspect": "^2.0.0"
+  },
+  "scripts": {
+    "build-md": "remark . --quiet --frail",
+    "build-bundle": "browserify index.js --bare -s remarkGemoji > remark-gemoji.js",
+    "build-mangle": "esmangle remark-gemoji.js > remark-gemoji.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint-api": "eslint .",
+    "lint-style": "jscs --reporter inline .",
+    "lint": "npm run lint-api && npm run lint-style",
+    "test-api": "node test.js",
+    "test-coverage": "istanbul cover test.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  }
+}

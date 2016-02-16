@@ -1,0 +1,17 @@
+{
+  "output": true,
+  "plugins": {
+    "lint": {
+      "final-definition": false
+    },
+    "github": null,
+    "toc": null,
+    "comment-config": null,
+    "usage": null,
+    "validate-links": null,
+    "remark-license": null
+  },
+  "settings": {
+    "bullet": "*"
+  }
+}
