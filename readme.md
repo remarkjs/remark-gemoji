@@ -27,7 +27,7 @@ Without this plug-in:
 
 ```javascript
 var tree = remark().parse(':heavy_check_mark:', {
-    'pedantic': true
+  pedantic: true
 });
 ```
 
@@ -45,7 +45,7 @@ With this plug-in:
 
 ```javascript
 tree = remark().use(gemoji).parse(':heavy_check_mark:', {
-    'pedantic': true
+  pedantic: true
 });
 ```
 
@@ -65,12 +65,23 @@ This doesn’t do much other than creating whole [`Text`][text] nodes
 for emoji, and ensuring gemoji short-codes with underscores are not
 seen as emphasis in pedantic mode.
 
-> **Note**: when compiling, `pedantic` must be false! Otherwise,
+> **Note**: when compiling, `pedantic` must be false!  Otherwise,
 > the underscores in gemoji short-codes are still escaped.
 >
-> Although, GitHub itself doesn’t care: :heavy\_check\_mark:.
+> Although, GitHub itself doesn’t care: :heavy_check_mark:.
 
 ## Related
+
+*   [`remark-gemoji-to-emoji`][gemoji-to-emoji]
+    — Transform gemoji shortcodes into emoji unicodes;
+*   [`remark-html-emoji-image`][html-emoji-image]
+    — Transform emoji unicodes into html images;
+*   [`remark-emoji-to-gemoji`][emoji-to-gemoji]
+    — Transform emoji unicodes into gemoji shortcodes.
+
+## License
+
+[MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
 
 <!-- Definitions -->
 
@@ -90,6 +101,8 @@ seen as emphasis in pedantic mode.
 
 [text]: https://github.com/wooorm/mdast#textnode
 
-## License
+[gemoji-to-emoji]: https://github.com/jackycute/remark-gemoji-to-emoji
 
-[MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
+[html-emoji-image]: https://github.com/jackycute/remark-html-emoji-image
+
+[emoji-to-gemoji]: https://github.com/jackycute/remark-emoji-to-gemoji

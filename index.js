@@ -8,38 +8,29 @@
 
 'use strict';
 
-/* eslint-env commonjs */
-
-/*
- * Dependencies.
- */
-
+/* Dependencies. */
+var has = require('has');
 var gemoji = require('gemoji').name;
 
-/*
- * Methods.
- */
+/* Expose. */
+module.exports = plugin;
 
-var has = Object.prototype.hasOwnProperty;
-
-/*
- * Constants.
- */
-
+/* Constants. */
 var C_COLON = ':';
 
 /**
- * Find a possible gemoji short-code.
+ * Attach.
  *
- * @example
- *   locate('foo :bar:'); // 4
- *
- * @param {string} value - Value to search.
- * @param {number} fromIndex - Index to start searching at.
- * @return {number} - Location of possible mention sequence.
+ * @param {Remark} remark - Instance.
  */
-function locate(value, fromIndex) {
-    return value.indexOf(C_COLON, fromIndex);
+function plugin(remark) {
+  var proto = remark.Parser.prototype;
+  var methods = proto.inlineMethods;
+
+  /* Add a tokenizer to the `Parser`. */
+  proto.inlineTokenizers.gemojiShortCode = tokenize;
+
+  methods.splice(methods.indexOf('strong'), 0, 'gemojiShortCode');
 }
 
 /**
@@ -55,71 +46,55 @@ function locate(value, fromIndex) {
  * @return {Node?|boolean} - `delete` node.
  */
 function tokenize(eat, value, silent) {
-    var self = this;
-    var subvalue;
-    var pos;
+  var subvalue;
+  var pos;
 
-    /*
-     * Check if we’re at a short-code.
-     */
+  /* Check if we’re at a short-code. */
+  if (value.charAt(0) !== C_COLON) {
+    return;
+  }
 
-    if (value.charAt(0) !== C_COLON) {
-        return;
-    }
+  pos = value.indexOf(C_COLON, 1);
 
-    pos = value.indexOf(C_COLON, 1);
+  if (pos === -1) {
+    return;
+  }
 
-    if (pos === -1) {
-        return;
-    }
+  subvalue = value.slice(1, pos);
 
-    subvalue = value.slice(1, pos);
+  if (!has(gemoji, subvalue)) {
+    return;
+  }
 
-    if (!has.call(gemoji, subvalue)) {
-        return;
-    }
+  /* Yup, it’s a short-code.  Exit with true in silent
+   * mode. */
 
-    /*
-     * Yup, it’s a short-code.  Exit with true in silent
-     * mode.
-     */
+  /* istanbul ignore if */
+  if (silent) {
+    return true;
+  }
 
-    /* istanbul ignore if */
-    if (silent) {
-        return true;
-    }
+  /* Eat a text-node. */
+  subvalue = C_COLON + subvalue + C_COLON;
 
-    /*
-     * Eat a text-node.
-     */
-
-    subvalue = C_COLON + subvalue + C_COLON;
-
-    return eat(subvalue)(self.renderRaw('text', subvalue));
+  return eat(subvalue)({
+    type: 'text',
+    value: subvalue
+  });
 }
 
 tokenize.locator = locate;
 
 /**
- * Attach.
+ * Find a possible gemoji short-code.
  *
- * @param {Remark} remark - Instance.
+ * @example
+ *   locate('foo :bar:'); // 4
+ *
+ * @param {string} value - Value to search.
+ * @param {number} fromIndex - Index to start searching at.
+ * @return {number} - Location of possible mention sequence.
  */
-function plugin(remark) {
-    var proto = remark.Parser.prototype;
-    var methods = proto.inlineMethods;
-
-    /*
-     * Add a tokenizer to the `Parser`.
-     */
-
-    proto.inlineTokenizers.gemojiShortCode = tokenize;
-
-    methods.splice(methods.indexOf('strong'), 0, 'gemojiShortCode');
+function locate(value, fromIndex) {
+  return value.indexOf(C_COLON, fromIndex);
 }
-
-/*
- * Expose `plugin`.
- */
-
-module.exports = plugin;

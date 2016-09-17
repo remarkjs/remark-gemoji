@@ -12,12 +12,10 @@
     "remark"
   ],
   "dependencies": {
-    "gemoji": "^1.0.0"
+    "gemoji": "^1.0.0",
+    "has": "^1.0.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wooorm/remark-gemoji.git"
-  },
+  "repository": "https://github.com/wooorm/remark-gemoji",
   "bugs": "https://github.com/wooorm/remark-gemoji/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
@@ -28,33 +26,38 @@
   ],
   "devDependencies": {
     "browserify": "^13.0.0",
-    "eslint": "^2.0.0",
     "esmangle": "^1.0.0",
-    "istanbul": "^0.4.0",
-    "jscs": "^2.0.0",
-    "jscs-jsdoc": "^1.0.0",
-    "remark": "^4.0.0",
-    "remark-comment-config": "^3.0.0",
-    "remark-github": "^4.0.1",
-    "remark-license": "^2.0.0",
-    "remark-lint": "^3.0.0",
-    "remark-toc": "^3.0.0",
-    "remark-usage": "^3.0.0",
-    "remark-validate-links": "^3.0.0",
-    "remark-yaml-config": "^3.0.0",
+    "nyc": "^8.3.0",
+    "remark": "^6.0.0",
+    "remark-cli": "^2.0.0",
+    "remark-preset-wooorm": "^1.0.0",
     "tape": "^4.0.0",
-    "unist-util-inspect": "^2.0.0"
+    "xo": "^0.16.0"
   },
   "scripts": {
     "build-md": "remark . --quiet --frail",
     "build-bundle": "browserify index.js --bare -s remarkGemoji > remark-gemoji.js",
     "build-mangle": "esmangle remark-gemoji.js > remark-gemoji.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
-    "lint-api": "eslint .",
-    "lint-style": "jscs --reporter inline .",
-    "lint": "npm run lint-api && npm run lint-style",
-    "test-api": "node test.js",
-    "test-coverage": "istanbul cover test.js",
+    "lint": "xo",
+    "test-api": "node test",
+    "test-coverage": "nyc --reporter lcov tape test.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "ignores": [
+      "remark-gemoji.js"
+    ]
+  },
+  "remarkConfig": {
+    "output": true,
+    "presets": "wooorm"
   }
 }
