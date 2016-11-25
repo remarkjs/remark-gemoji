@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-- '0.11'
-- '5.0'
-- '6.0'
+- '4.0'
+- '7.0'
 after_script: bash <(curl -s https://codecov.io/bash)
 deploy:
   - provider: npm
@@ -11,7 +10,7 @@ deploy:
       secure: 4idH51HRSj8b8L32OU7C6CUSLW1GUn7Qe4534upm0UcWakddRgiEqfc5PL/PN2vgC9elLhJaQBymQfHlwlOBXN6vDQyMYGIsWQpeOhKIr3bkPWUHhaL4+nGITReEPXhr6weIjzOIk4MMyhEAZZEacJHMHWm1IhaBzUEL6TxT1tcnlW83LeQNvbX9ys2ybPBXbS5a6g5ikS/PQDsSUIFL46Jq7T1NjsmVvdh5KXO1eo+oQHPCpbo1f+1e5rUuLOJXa5FNXgBPj2QEPcam7+N2/5pDXOI0q3qY2tBEyXdVGrsHmwwtHUDDHd22Y1spbf1F4Jt7YwLKiOUVQhJVQo3IaQhvVjmH+pmNaC1q/uWp2Zw4to+Lu3EqZ+WrfN7devYUU0FnMKFSzsc+bBFyv4anZgOBCVCCE64PiwzGm9iDCSToajF3DVzlRcewaJuIvl9KuKpMkXH8FnbENxk5laZ4MM9VbeSv4cduQQZQVeYJo9Io9/lj8EXmLuW9gAMNRI0VHtWAzwATkg2JioFbiNWIMoeczEgzXUmaNgRyBt0TrjMsiwDsKEsRf51Ppv7kHe7qPVMt8E5AlXYzykKhCQwxZx/t0d4Pwt+MnLiAOHCCq7CZJ9tiKq+7+4IMCC+3JnnHqldfVxRVVAEM5toh0MCPuxYxcQVA/Iup6Ix1k0BNCHI=
     on:
       tags: true
-      node: '5.0'
+      node: '4.0'
   - provider: releases
     api_key:
       secure: 0QmtWwtU8dvxZht4Hrx7NU8LfyPU2kgpRjx1VuIGfP5xGirvXssCU+DmbUTS14Ubr5CTViEy5/9ISy/SKhP2okfclkrx7wawuT2Fy3/ZsPZlWMRZSPokOprXrM+NU7A8kR5ZIc2P9MZUPYEkgLhgkC92iQvW+A6/J56mg/pRPp98qmb/zn9b5ycDvRhwIAa/Z0/BSwnBHEgLy0qE2bCynE1rs25KZX9pHMu9gpQeJiFjmVC88AkTgPGcObt0hJzGqq5AR4XO20FWeS0hXnYbFkn9QwfQp4SXMH5T/lrgNAVJCQQBNoZib23ieeMl17nYonXTbh5McFHxEcXuDTSAoUGZ1gqASrXvABn/XtYJFy6HkCvz5VGqW/nUQQZ589lsCO7OsRPYbC8A57vamWizevRE08btixVcUhQXe0oodLytRBWwbgC0GMNQyFe2A9b89R7iC796vtby0ktRWLLMWB2uwxPBx1ZbWjLMsmvztCC0Eited5Z/s/TeYCx1VN/WpbvFBsBeiahuwJee4ndQvjArmUzBQKBfyvlSZOpjUHhhI6OmwmPk+t5v1BBeYtyx9oQZkq4J/1PsUO2FumO80ZXay1VZf1JkbCgYtAX6xCrRA4shs1OTEx/0zM2ZIKWgDjMWLV/Ei1KhLNNSgDeuR8YiloCOBs4rHgKEfW5ME78=
@@ -20,4 +19,4 @@ deploy:
       - "remark-gemoji.min.js"
     on:
       tags: true
-      node: '6.0'
+      node: '7.0'
