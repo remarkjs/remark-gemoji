@@ -12,7 +12,7 @@
     "remark"
   ],
   "dependencies": {
-    "gemoji": "^1.0.0",
+    "gemoji": "^2.0.1",
     "has": "^1.0.1"
   },
   "repository": "https://github.com/wooorm/remark-gemoji",
@@ -27,12 +27,12 @@
   "devDependencies": {
     "browserify": "^13.0.0",
     "esmangle": "^1.0.0",
-    "nyc": "^8.3.0",
+    "nyc": "^10.0.0",
     "remark": "^6.0.0",
     "remark-cli": "^2.0.0",
     "remark-preset-wooorm": "^1.0.0",
     "tape": "^4.0.0",
-    "xo": "^0.16.0"
+    "xo": "^0.17.1"
   },
   "scripts": {
     "build-md": "remark . --quiet --frail",
