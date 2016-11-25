@@ -1,60 +1,31 @@
-/**
- * @author Titus Wormer
- * @copyright 2015 Titus Wormer
- * @license MIT
- * @module remark:gemoji
- * @fileoverview Gemoji short-code support in remark.
- */
-
 'use strict';
 
-/* Dependencies. */
 var has = require('has');
 var gemoji = require('gemoji').name;
 
-/* Expose. */
 module.exports = plugin;
 
-/* Constants. */
-var C_COLON = ':';
+var colon = ':';
 
-/**
- * Attach.
- *
- * @param {Remark} remark - Instance.
- */
 function plugin(remark) {
   var proto = remark.Parser.prototype;
   var methods = proto.inlineMethods;
 
-  /* Add a tokenizer to the `Parser`. */
   proto.inlineTokenizers.gemojiShortCode = tokenize;
 
   methods.splice(methods.indexOf('strong'), 0, 'gemojiShortCode');
 }
 
-/**
- * Tokenize a short-code.
- *
- * @example
- *   shortCode(eat, '@foo'); // 4
- *
- * @property {Function} locator - Mention locator.
- * @param {function(string)} eat - Eater.
- * @param {string} value - Rest of content.
- * @param {boolean?} [silent] - Whether this is a dry run.
- * @return {Node?|boolean} - `delete` node.
- */
 function tokenize(eat, value, silent) {
   var subvalue;
   var pos;
 
   /* Check if we’re at a short-code. */
-  if (value.charAt(0) !== C_COLON) {
+  if (value.charAt(0) !== colon) {
     return;
   }
 
-  pos = value.indexOf(C_COLON, 1);
+  pos = value.indexOf(colon, 1);
 
   if (pos === -1) {
     return;
@@ -75,7 +46,7 @@ function tokenize(eat, value, silent) {
   }
 
   /* Eat a text-node. */
-  subvalue = C_COLON + subvalue + C_COLON;
+  subvalue = colon + subvalue + colon;
 
   return eat(subvalue)({
     type: 'text',
@@ -85,16 +56,6 @@ function tokenize(eat, value, silent) {
 
 tokenize.locator = locate;
 
-/**
- * Find a possible gemoji short-code.
- *
- * @example
- *   locate('foo :bar:'); // 4
- *
- * @param {string} value - Value to search.
- * @param {number} fromIndex - Index to start searching at.
- * @return {number} - Location of possible mention sequence.
- */
 function locate(value, fromIndex) {
-  return value.indexOf(C_COLON, fromIndex);
+  return value.indexOf(colon, fromIndex);
 }

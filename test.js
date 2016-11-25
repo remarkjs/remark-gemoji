@@ -1,19 +1,9 @@
-/**
- * @author Titus Wormer
- * @copyright 2015 Titus Wormer
- * @license MIT
- * @module remark:gemoji
- * @fileoverview Test suite for `remark-gemoji`.
- */
-
 'use strict';
 
-/* Dependencies. */
 var test = require('tape');
 var remark = require('remark');
 var gemoji = require('./index.js');
 
-/* Tests. */
 test('remark-gemoji', function (t) {
   var processor = remark().use(gemoji);
 
