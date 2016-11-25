@@ -4,31 +4,22 @@ Gemoji short-code support in [**remark**][remark].
 
 ## Installation
 
-[npm][npm-install]:
+[npm][]:
 
 ```bash
 npm install remark-gemoji
 ```
 
-**remark-gemoji** is also available as an AMD, CommonJS, and globals
-module, [uncompressed and compressed][releases].
-
 ## Usage
-
-Dependencies:
 
 ```javascript
 var remark = require('remark');
 var inspect = require('unist-util-inspect');
 var gemoji = require('remark-gemoji');
-```
 
-Without this plug-in:
-
-```javascript
-var tree = remark().parse(':heavy_check_mark:', {
-  pedantic: true
-});
+// Without this plug-in:
+var tree = remark().parse(':heavy_check_mark:', {pedantic: true});
+console.log(inspect(tree));
 ```
 
 Yields:
@@ -41,12 +32,12 @@ paragraph[3] (1:1-1:19, 0-18)
 └─ text: "mark:" (1:14-1:19, 13-18)
 ```
 
-With this plug-in:
-
 ```javascript
+// With this plug-in:
 tree = remark().use(gemoji).parse(':heavy_check_mark:', {
   pedantic: true
 });
+console.log(inspect(tree));
 ```
 
 Yields:
@@ -93,9 +84,7 @@ seen as emphasis in pedantic mode.
 
 [codecov]: https://codecov.io/github/wooorm/remark-gemoji
 
-[npm-install]: https://docs.npmjs.com/cli/install
-
-[releases]: https://github.com/wooorm/remark-gemoji/releases
+[npm]: https://docs.npmjs.com/cli/install
 
 [remark]: https://github.com/wooorm/remark
 
