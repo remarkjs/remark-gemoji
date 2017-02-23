@@ -7,8 +7,8 @@ module.exports = plugin;
 
 var colon = ':';
 
-function plugin(remark) {
-  var proto = remark.Parser.prototype;
+function plugin() {
+  var proto = this.Parser.prototype;
   var methods = proto.inlineMethods;
 
   proto.inlineTokenizers.gemojiShortCode = tokenize;
