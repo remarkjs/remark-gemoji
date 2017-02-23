@@ -1,6 +1,6 @@
 {
   "name": "remark-gemoji",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Gemoji short-code support in remark",
   "license": "MIT",
   "keywords": [
