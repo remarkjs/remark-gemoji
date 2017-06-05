@@ -12,8 +12,7 @@
     "remark"
   ],
   "dependencies": {
-    "gemoji": "^4.1.0",
-    "has": "^1.0.1"
+    "gemoji": "^4.1.0"
   },
   "repository": "https://github.com/wooorm/remark-gemoji",
   "bugs": "https://github.com/wooorm/remark-gemoji/issues",

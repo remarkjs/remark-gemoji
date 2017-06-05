@@ -1,11 +1,11 @@
 'use strict';
 
-var has = require('has');
 var gemoji = require('gemoji').name;
 
 module.exports = plugin;
 
 var colon = ':';
+var own = {}.hasOwnProperty;
 
 function plugin() {
   var proto = this.Parser.prototype;
@@ -33,7 +33,7 @@ function tokenize(eat, value, silent) {
 
   subvalue = value.slice(1, pos);
 
-  if (!has(gemoji, subvalue)) {
+  if (!own.call(gemoji, subvalue)) {
     return;
   }
 
