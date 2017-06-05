@@ -92,7 +92,7 @@ seen as emphasis in pedantic mode.
 
 [remark]: https://github.com/wooorm/remark
 
-[text]: https://github.com/wooorm/mdast#textnode
+[text]: https://github.com/syntax-tree/mdast#textnode
 
 [gemoji-to-emoji]: https://github.com/jackycute/remark-gemoji-to-emoji
 
