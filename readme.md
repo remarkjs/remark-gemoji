@@ -1,4 +1,4 @@
-# remark-gemoji [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
+# remark-gemoji [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov] [![Chat][chat-badge]][chat]
 
 Gemoji short-code support in [**remark**][remark].
 
@@ -83,6 +83,10 @@ seen as emphasis in pedantic mode.
 [codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/remark-gemoji.svg
 
 [codecov]: https://codecov.io/github/wooorm/remark-gemoji
+
+[chat-badge]: https://img.shields.io/gitter/room/wooorm/remark.svg
+
+[chat]: https://gitter.im/wooorm/remark
 
 [npm]: https://docs.npmjs.com/cli/install
 
