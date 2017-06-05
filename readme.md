@@ -76,11 +76,11 @@ seen as emphasis in pedantic mode.
 ## Related
 
 *   [`remark-gemoji-to-emoji`][gemoji-to-emoji]
-    — Transform gemoji shortcodes into emoji unicodes;
+    — Transform gemoji shortcodes into emoji unicodes
 *   [`remark-html-emoji-image`][html-emoji-image]
-    — Transform emoji unicodes into html images;
+    — Transform emoji unicodes into html images
 *   [`remark-emoji-to-gemoji`][emoji-to-gemoji]
-    — Transform emoji unicodes into gemoji shortcodes.
+    — Transform emoji unicodes into gemoji shortcodes
 
 ## License
 
