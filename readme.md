@@ -12,39 +12,51 @@ npm install remark-gemoji
 
 ## Usage
 
-```javascript
-var remark = require('remark');
-var inspect = require('unist-util-inspect');
-var gemoji = require('remark-gemoji');
-
-// Without this plug-in:
-var tree = remark().parse(':heavy_check_mark:', {pedantic: true});
-console.log(inspect(tree));
-```
-
-Yields:
-
-```txt
-paragraph[3] (1:1-1:19, 0-18)
-├─ text: ":heavy" (1:1-1:7, 0-6)
-├─ emphasis[1] (1:7-1:14, 6-13)
-│  └─ text: "check" (1:8-1:13, 7-12)
-└─ text: "mark:" (1:14-1:19, 13-18)
-```
+Say `example.js` looks as follows (note `remark-gemoji` isn’t used):
 
 ```javascript
-// With this plug-in:
-tree = remark().use(gemoji).parse(':heavy_check_mark:', {
-  pedantic: true
-});
-console.log(inspect(tree));
+var unified = require('unified');
+var parse = require('remark-parse');
+
+var tree = unified()
+  .use(parse)
+  .data('settings', {pedantic: true, position: false})
+  .parse(':heavy_check_mark:');
+
+console.dir(tree, {depth: null});
 ```
 
-Yields:
+Running `node example` yields:
 
-```txt
-paragraph[1] (1:1-1:19, 0-18)
-└─ text: ":heavy_check_mark:" (1:1-1:19, 0-18)
+```js
+{ type: 'root',
+  children:
+   [ { type: 'paragraph',
+       children:
+        [ { type: 'text', value: ':heavy' },
+          { type: 'emphasis',
+            children: [ { type: 'text', value: 'check' } ] },
+          { type: 'text', value: 'mark:' } ] } ] }
+```
+
+If we now add `remark-gemoji` by applying the following diff to `example.js`:
+
+```diff
+ var parse = require('remark-parse');
++var gemoji = require('remark-gemoji');
+
+ var tree = unified()
++  .use(gemoji)
+   .use(parse)
+```
+
+If we now run `node example` again, you’ll see the following:
+
+```js
+{ type: 'root',
+  children:
+   [ { type: 'paragraph',
+       children: [ { type: 'text', value: ':heavy_check_mark:' } ] } ] }
 ```
 
 ## API
