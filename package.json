@@ -11,10 +11,7 @@
     "shortcode",
     "remark"
   ],
-  "dependencies": {
-    "gemoji": "^4.1.0"
-  },
-  "repository": "https://github.com/wooorm/remark-gemoji",
+  "repository": "wooorm/remark-gemoji",
   "bugs": "https://github.com/wooorm/remark-gemoji/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
@@ -23,6 +20,9 @@
   "files": [
     "index.js"
   ],
+  "dependencies": {
+    "gemoji": "^4.1.0"
+  },
   "devDependencies": {
     "browserify": "^14.0.0",
     "esmangle": "^1.0.0",
