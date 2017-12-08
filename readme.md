@@ -82,6 +82,13 @@ seen as emphasis in pedantic mode.
 *   [`remark-emoji-to-gemoji`][emoji-to-gemoji]
     — Transform emoji unicodes into gemoji shortcodes
 
+## Contribute
+
+See [`contribute.md` in `remarkjs/remarkj`][contribute] for ways to get started.
+
+This organisation has a [Code of Conduct][coc].  By interacting with this
+repository, organisation, or community you agree to abide by its terms.
+
 ## License
 
 [MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
@@ -111,3 +118,7 @@ seen as emphasis in pedantic mode.
 [html-emoji-image]: https://github.com/jackycute/remark-html-emoji-image
 
 [emoji-to-gemoji]: https://github.com/jackycute/remark-emoji-to-gemoji
+
+[contribute]: https://github.com/remarkjs/remark/blob/master/contributing.md
+
+[coc]: https://github.com/remarkjs/remark/blob/master/code-of-conduct.md
