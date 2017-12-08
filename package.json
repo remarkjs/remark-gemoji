@@ -11,8 +11,8 @@
     "shortcode",
     "remark"
   ],
-  "repository": "wooorm/remark-gemoji",
-  "bugs": "https://github.com/wooorm/remark-gemoji/issues",
+  "repository": "remarkjs/remark-gemoji",
+  "bugs": "https://github.com/remarkjs/remark-gemoji/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"

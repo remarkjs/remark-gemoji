@@ -88,21 +88,21 @@ seen as emphasis in pedantic mode.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/remark-gemoji/master.svg
+[travis-badge]: https://img.shields.io/travis/remarkjs/remark-gemoji/master.svg
 
-[travis]: https://travis-ci.org/wooorm/remark-gemoji
+[travis]: https://travis-ci.org/remarkjs/remark-gemoji
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/remark-gemoji.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/remarkjs/remark-gemoji.svg
 
-[codecov]: https://codecov.io/github/wooorm/remark-gemoji
+[codecov]: https://codecov.io/github/remarkjs/remark-gemoji
 
-[chat-badge]: https://img.shields.io/gitter/room/wooorm/remark.svg
+[chat-badge]: https://img.shields.io/gitter/room/remarkjs/Lobby.svg
 
-[chat]: https://gitter.im/wooorm/remark
+[chat]: https://gitter.im/remarkjs/Lobby
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[remark]: https://github.com/wooorm/remark
+[remark]: https://github.com/remarkjs/remark
 
 [text]: https://github.com/syntax-tree/mdast#textnode
 
