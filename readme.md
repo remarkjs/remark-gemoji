@@ -12,15 +12,14 @@ npm install remark-gemoji
 
 ## Usage
 
-Say `example.js` looks as follows (note `remark-gemoji` isn’t used):
+Say `example.js` looks as follows (note: `remark-gemoji` isn’t used):
 
 ```javascript
 var unified = require('unified');
 var parse = require('remark-parse');
 
 var tree = unified()
-  .use(parse)
-  .data('settings', {pedantic: true, position: false})
+  .use(parse, {pedantic: true, position: false})
   .parse(':heavy_check_mark:');
 
 console.dir(tree, {depth: null});
@@ -46,8 +45,9 @@ If we now add `remark-gemoji` by applying the following diff to `example.js`:
 +var gemoji = require('remark-gemoji');
 
  var tree = unified()
+   .use(parse, {pedantic: true, position: false})
 +  .use(gemoji)
-   .use(parse)
+   .parse(':heavy_check_mark:');
 ```
 
 If we now run `node example` again, you’ll see the following:
@@ -65,7 +65,7 @@ If we now run `node example` again, you’ll see the following:
 
 Gemoji short-code support in [**remark**][remark].
 This doesn’t do much other than creating whole [`Text`][text] nodes
-for emoji, and ensuring gemoji short-codes with underscores are not
+for gemoji, and ensuring gemoji short-codes with underscores are not
 seen as emphasis in pedantic mode.
 
 > **Note**: when compiling, `pedantic` must be false!  Otherwise,
@@ -84,7 +84,8 @@ seen as emphasis in pedantic mode.
 
 ## Contribute
 
-See [`contribute.md` in `remarkjs/remarkj`][contribute] for ways to get started.
+See [`contribute.md` in `remarkjs/remarkjs`][contribute] for ways to get
+started.
 
 This organisation has a [Code of Conduct][coc].  By interacting with this
 repository, organisation, or community you agree to abide by its terms.
