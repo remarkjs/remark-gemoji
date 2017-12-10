@@ -1,19 +1,26 @@
 'use strict';
 
-var gemoji = require('gemoji').name;
+var byName = require('gemoji').name;
 
-module.exports = plugin;
+module.exports = gemoji;
 
 var colon = ':';
 var own = {}.hasOwnProperty;
 
-function plugin() {
-  var proto = this.Parser.prototype;
-  var methods = proto.inlineMethods;
+tokenize.locator = locate;
+
+function gemoji() {
+  var parser = this.Parser;
+  var proto;
+
+  if (!isRemarkParser(parser)) {
+    throw new Error('Missing parser to attach `remark-gemoji` to');
+  }
+
+  proto = this.Parser.prototype;
 
   proto.inlineTokenizers.gemojiShortCode = tokenize;
-
-  methods.splice(methods.indexOf('strong'), 0, 'gemojiShortCode');
+  proto.inlineMethods.splice(proto.inlineMethods.indexOf('strong'), 0, 'gemojiShortCode');
 }
 
 function tokenize(eat, value, silent) {
@@ -33,7 +40,7 @@ function tokenize(eat, value, silent) {
 
   subvalue = value.slice(1, pos);
 
-  if (!own.call(gemoji, subvalue)) {
+  if (!own.call(byName, subvalue)) {
     return;
   }
 
@@ -48,14 +55,13 @@ function tokenize(eat, value, silent) {
   /* Eat a text-node. */
   subvalue = colon + subvalue + colon;
 
-  return eat(subvalue)({
-    type: 'text',
-    value: subvalue
-  });
+  return eat(subvalue)({type: 'text', value: subvalue});
 }
-
-tokenize.locator = locate;
 
 function locate(value, fromIndex) {
   return value.indexOf(colon, fromIndex);
+}
+
+function isRemarkParser(parser) {
+  return Boolean(parser && parser.prototype && parser.prototype.inlineTokenizers);
 }

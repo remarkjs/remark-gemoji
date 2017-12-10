@@ -1,13 +1,22 @@
 'use strict';
 
 var test = require('tape');
-var remark = require('remark');
-var gemoji = require('./index.js');
+var unified = require('unified');
+var parse = require('remark-parse');
+var gemoji = require('./');
 
 test('remark-gemoji', function (t) {
+  t.throws(
+    function () {
+      unified().use(gemoji).freeze();
+    },
+    /^Error: Missing parser to attach `remark-gemoji` to/,
+    'should throw if without parser'
+  );
+
   t.deepEqual(
-    remark()
-      .data('settings', {pedantic: true, position: false})
+    unified()
+      .use(parse, {pedantic: true, position: false})
       .use(gemoji)
       .parse(':a_b_c:'),
     {
@@ -26,12 +35,13 @@ test('remark-gemoji', function (t) {
           {type: 'text', value: 'c:'}
         ]
       }]
-    }
+    },
+    'should ignore unknown gemoji'
   );
 
   t.deepEqual(
-    remark()
-      .data('settings', {pedantic: true, position: false})
+    unified()
+      .use(parse, {pedantic: true, position: false})
       .use(gemoji)
       .parse(':heavy_check_mark:'),
     {
@@ -45,7 +55,8 @@ test('remark-gemoji', function (t) {
           }
         ]
       }]
-    }
+    },
+    'should support gemoji'
   );
 
   t.end();
