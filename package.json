@@ -25,19 +25,19 @@
   },
   "devDependencies": {
     "browserify": "^14.0.0",
-    "esmangle": "^1.0.0",
     "nyc": "^11.0.0",
     "remark-cli": "^4.0.0",
     "remark-parse": "^4.0.0",
     "remark-preset-wooorm": "^3.0.0",
     "tape": "^4.0.0",
+    "tinyify": "^2.4.3",
     "unified": "^6.1.6",
     "xo": "^0.18.0"
   },
   "scripts": {
     "build-md": "remark . -qfo",
-    "build-bundle": "browserify index.js --bare -s remarkGemoji > remark-gemoji.js",
-    "build-mangle": "esmangle remark-gemoji.js > remark-gemoji.min.js",
+    "build-bundle": "browserify . -s remarkGemoji > remark-gemoji.js",
+    "build-mangle": "browserify . -s remarkGemoji -p tinyify > remark-gemoji.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint": "xo",
     "test-api": "node test",
