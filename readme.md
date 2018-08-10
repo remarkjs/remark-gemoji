@@ -15,14 +15,14 @@ npm install remark-gemoji
 Say `example.js` looks as follows (note: `remark-gemoji` isn’t used):
 
 ```javascript
-var unified = require('unified');
-var parse = require('remark-parse');
+var unified = require('unified')
+var parse = require('remark-parse')
 
 var tree = unified()
   .use(parse, {pedantic: true, position: false})
-  .parse(':heavy_check_mark:');
+  .parse(':heavy_check_mark:')
 
-console.dir(tree, {depth: null});
+console.dir(tree, {depth: null})
 ```
 
 Running `node example` yields:
@@ -41,13 +41,13 @@ Running `node example` yields:
 If we now add `remark-gemoji` by applying the following diff to `example.js`:
 
 ```diff
- var parse = require('remark-parse');
-+var gemoji = require('remark-gemoji');
+ var parse = require('remark-parse')
++var gemoji = require('remark-gemoji')
 
  var tree = unified()
    .use(parse, {pedantic: true, position: false})
 +  .use(gemoji)
-   .parse(':heavy_check_mark:');
+   .parse(':heavy_check_mark:')
 ```
 
 If we now run `node example` again, you’ll see the following:

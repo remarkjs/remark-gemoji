@@ -1,47 +1,51 @@
-'use strict';
+'use strict'
 
-var byName = require('gemoji').name;
+var byName = require('gemoji').name
 
-module.exports = gemoji;
+module.exports = gemoji
 
-var colon = ':';
-var own = {}.hasOwnProperty;
+var colon = ':'
+var own = {}.hasOwnProperty
 
-tokenize.locator = locate;
+tokenize.locator = locate
 
 function gemoji() {
-  var parser = this.Parser;
-  var proto;
+  var parser = this.Parser
+  var proto
 
   if (!isRemarkParser(parser)) {
-    throw new Error('Missing parser to attach `remark-gemoji` to');
+    throw new Error('Missing parser to attach `remark-gemoji` to')
   }
 
-  proto = this.Parser.prototype;
+  proto = this.Parser.prototype
 
-  proto.inlineTokenizers.gemojiShortCode = tokenize;
-  proto.inlineMethods.splice(proto.inlineMethods.indexOf('strong'), 0, 'gemojiShortCode');
+  proto.inlineTokenizers.gemojiShortCode = tokenize
+  proto.inlineMethods.splice(
+    proto.inlineMethods.indexOf('strong'),
+    0,
+    'gemojiShortCode'
+  )
 }
 
 function tokenize(eat, value, silent) {
-  var subvalue;
-  var pos;
+  var subvalue
+  var pos
 
   /* Check if we’re at a short-code. */
   if (value.charAt(0) !== colon) {
-    return;
+    return
   }
 
-  pos = value.indexOf(colon, 1);
+  pos = value.indexOf(colon, 1)
 
   if (pos === -1) {
-    return;
+    return
   }
 
-  subvalue = value.slice(1, pos);
+  subvalue = value.slice(1, pos)
 
   if (!own.call(byName, subvalue)) {
-    return;
+    return
   }
 
   /* Yup, it’s a short-code.  Exit with true in silent
@@ -49,19 +53,21 @@ function tokenize(eat, value, silent) {
 
   /* istanbul ignore if */
   if (silent) {
-    return true;
+    return true
   }
 
   /* Eat a text-node. */
-  subvalue = colon + subvalue + colon;
+  subvalue = colon + subvalue + colon
 
-  return eat(subvalue)({type: 'text', value: subvalue});
+  return eat(subvalue)({type: 'text', value: subvalue})
 }
 
 function locate(value, fromIndex) {
-  return value.indexOf(colon, fromIndex);
+  return value.indexOf(colon, fromIndex)
 }
 
 function isRemarkParser(parser) {
-  return Boolean(parser && parser.prototype && parser.prototype.inlineTokenizers);
+  return Boolean(
+    parser && parser.prototype && parser.prototype.inlineTokenizers
+  )
 }

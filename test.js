@@ -1,18 +1,20 @@
-'use strict';
+'use strict'
 
-var test = require('tape');
-var unified = require('unified');
-var parse = require('remark-parse');
-var gemoji = require('.');
+var test = require('tape')
+var unified = require('unified')
+var parse = require('remark-parse')
+var gemoji = require('.')
 
-test('remark-gemoji', function (t) {
+test('remark-gemoji', function(t) {
   t.throws(
-    function () {
-      unified().use(gemoji).freeze();
+    function() {
+      unified()
+        .use(gemoji)
+        .freeze()
     },
     /^Error: Missing parser to attach `remark-gemoji` to/,
     'should throw if without parser'
-  );
+  )
 
   t.deepEqual(
     unified()
@@ -21,23 +23,19 @@ test('remark-gemoji', function (t) {
       .parse(':a_b_c:'),
     {
       type: 'root',
-      children: [{
-        type: 'paragraph',
-        children: [
-          {type: 'text', value: ':a'},
-          {
-            type: 'emphasis',
-            children: [{
-              type: 'text',
-              value: 'b'
-            }]
-          },
-          {type: 'text', value: 'c:'}
-        ]
-      }]
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {type: 'text', value: ':a'},
+            {type: 'emphasis', children: [{type: 'text', value: 'b'}]},
+            {type: 'text', value: 'c:'}
+          ]
+        }
+      ]
     },
     'should ignore unknown gemoji'
-  );
+  )
 
   t.deepEqual(
     unified()
@@ -46,18 +44,20 @@ test('remark-gemoji', function (t) {
       .parse(':heavy_check_mark:'),
     {
       type: 'root',
-      children: [{
-        type: 'paragraph',
-        children: [
-          {
-            type: 'text',
-            value: ':heavy_check_mark:'
-          }
-        ]
-      }]
+      children: [
+        {
+          type: 'paragraph',
+          children: [
+            {
+              type: 'text',
+              value: ':heavy_check_mark:'
+            }
+          ]
+        }
+      ]
     },
     'should support gemoji'
-  );
+  )
 
-  t.end();
-});
+  t.end()
+})
