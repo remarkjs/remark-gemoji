@@ -3,7 +3,7 @@
 var test = require('tape');
 var unified = require('unified');
 var parse = require('remark-parse');
-var gemoji = require('./');
+var gemoji = require('.');
 
 test('remark-gemoji', function (t) {
   t.throws(
