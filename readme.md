@@ -92,7 +92,7 @@ repository, organisation, or community you agree to abide by its terms.
 
 ## License
 
-[MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
+[MIT](license) © [Titus Wormer](http://wooorm.com)
 
 <!-- Definitions -->
 
