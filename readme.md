@@ -1,4 +1,11 @@
-# remark-gemoji [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov] [![Chat][chat-badge]][chat]
+# remark-gemoji
+
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Chat][chat-badge]][chat]
+[![Sponsors][sponsors-badge]][collective]
+[![Backers][backers-badge]][collective]
 
 Gemoji short-code support in [**remark**][remark].
 
@@ -96,17 +103,27 @@ repository, organisation, or community you agree to abide by its terms.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/remarkjs/remark-gemoji/master.svg
+[build-badge]: https://img.shields.io/travis/remarkjs/remark-gemoji.svg
 
-[travis]: https://travis-ci.org/remarkjs/remark-gemoji
+[build]: https://travis-ci.org/remarkjs/remark-gemoji
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/remarkjs/remark-gemoji.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/remarkjs/remark-gemoji.svg
 
-[codecov]: https://codecov.io/github/remarkjs/remark-gemoji
+[coverage]: https://codecov.io/github/remarkjs/remark-gemoji
 
-[chat-badge]: https://img.shields.io/gitter/room/remarkjs/Lobby.svg
+[downloads-badge]: https://img.shields.io/npm/dm/remark-gemoji.svg
 
-[chat]: https://gitter.im/remarkjs/Lobby
+[downloads]: https://www.npmjs.com/package/remark-gemoji
+
+[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+
+[chat]: https://spectrum.chat/unified/remark
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[collective]: https://opencollective.com/unified
 
 [npm]: https://docs.npmjs.com/cli/install
 
