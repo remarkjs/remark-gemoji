@@ -31,7 +31,7 @@ function tokenize(eat, value, silent) {
   var subvalue
   var pos
 
-  /* Check if we’re at a short-code. */
+  // Check if we are at a shortcode.
   if (value.charAt(0) !== colon) {
     return
   }
@@ -48,15 +48,12 @@ function tokenize(eat, value, silent) {
     return
   }
 
-  /* Yup, it’s a short-code.  Exit with true in silent
-   * mode. */
-
-  /* istanbul ignore if */
+  /* istanbul ignore if - Yup, it’s a shortcode.  Exit with true in silent mode. */
   if (silent) {
     return true
   }
 
-  /* Eat a text-node. */
+  // Eat a text.
   subvalue = colon + subvalue + colon
 
   return eat(subvalue)({type: 'text', value: subvalue})
