@@ -1,6 +1,6 @@
 {
   "name": "remark-gemoji",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "remark plugin to parse Gemoji shortcodes",
   "license": "MIT",
   "keywords": [
