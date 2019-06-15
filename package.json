@@ -1,15 +1,19 @@
 {
   "name": "remark-gemoji",
   "version": "4.0.2",
-  "description": "Gemoji short-code support in remark",
+  "description": "remark plugin to parse Gemoji shortcodes",
   "license": "MIT",
   "keywords": [
+    "unified",
+    "remark",
+    "plugin",
+    "mdast",
+    "markdown",
     "github",
     "gemoji",
     "emoji",
     "short-code",
-    "shortcode",
-    "remark"
+    "shortcode"
   ],
   "repository": "remarkjs/remark-gemoji",
   "bugs": "https://github.com/remarkjs/remark-gemoji/issues",
