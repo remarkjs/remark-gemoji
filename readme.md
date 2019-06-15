@@ -3,25 +3,26 @@
 [![Build][build-badge]][build]
 [![Coverage][coverage-badge]][coverage]
 [![Downloads][downloads-badge]][downloads]
-[![Chat][chat-badge]][chat]
+[![Size][size-badge]][size]
 [![Sponsors][sponsors-badge]][collective]
 [![Backers][backers-badge]][collective]
+[![Chat][chat-badge]][chat]
 
-Gemoji short-code support in [**remark**][remark].
+[**remark**][remark] plugin to parse Gemoji shortcodes.
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install remark-gemoji
 ```
 
-## Usage
+## Use
 
 Say `example.js` looks as follows (note: `remark-gemoji` isn’t used):
 
-```javascript
+```js
 var unified = require('unified')
 var parse = require('remark-parse')
 
@@ -68,17 +69,17 @@ If we now run `node example` again, you’ll see the following:
 
 ## API
 
-### `remark.use(gemoji)`
+### `remark().use(gemoji)`
 
-Gemoji short-code support in [**remark**][remark].
-This doesn’t do much other than creating whole [`Text`][text] nodes
-for gemoji, and ensuring gemoji short-codes with underscores are not
-seen as emphasis in pedantic mode.
+Plugin to parse Gemoji shortcodes.
+This doesn’t do much other than creating whole [**Text**][text] nodes for
+Gemoji, and ensuring Gemoji shortcodes with underscores are not seen as emphasis
+in pedantic mode.
 
-> **Note**: when compiling, `pedantic` must be false!  Otherwise,
-> the underscores in gemoji short-codes are still escaped.
+> **Note**: when compiling, `pedantic` must be false!
+> Otherwise, the underscores in gemoji shortcodes are still escaped.
 >
-> Although, GitHub itself doesn’t care: :heavy_check_mark:.
+> Although, GitHub itself doesn’t care: `:heavy\_check\_mark:`.
 
 ## Related
 
@@ -91,19 +92,21 @@ seen as emphasis in pedantic mode.
 
 ## Contribute
 
-See [`contributing.md` in `remarkjs/remark`][contributing] for ways to get
-started.
+See [`contributing.md`][contributing] in [`remarkjs/.github`][health] for ways
+to get started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
-[MIT](license) © [Titus Wormer](https://wooorm.com)
+[MIT][license] © [Titus Wormer][author]
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/remarkjs/remark-gemoji.svg
+[build-badge]: https://img.shields.io/travis/remarkjs/remark-gemoji/master.svg
 
 [build]: https://travis-ci.org/remarkjs/remark-gemoji
 
@@ -115,9 +118,9 @@ repository, organisation, or community you agree to abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/remark-gemoji
 
-[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+[size-badge]: https://img.shields.io/bundlephobia/minzip/remark-gemoji.svg
 
-[chat]: https://spectrum.chat/unified/remark
+[size]: https://bundlephobia.com/result?p=remark-gemoji
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -125,7 +128,23 @@ repository, organisation, or community you agree to abide by its terms.
 
 [collective]: https://opencollective.com/unified
 
+[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+
+[chat]: https://spectrum.chat/unified/remark
+
 [npm]: https://docs.npmjs.com/cli/install
+
+[health]: https://github.com/remarkjs/.github
+
+[contributing]: https://github.com/remarkjs/.github/blob/master/contributing.md
+
+[support]: https://github.com/remarkjs/.github/blob/master/support.md
+
+[coc]: https://github.com/remarkjs/.github/blob/master/code-of-conduct.md
+
+[license]: license
+
+[author]: https://wooorm.com
 
 [remark]: https://github.com/remarkjs/remark
 
@@ -136,7 +155,3 @@ repository, organisation, or community you agree to abide by its terms.
 [html-emoji-image]: https://github.com/jackycute/remark-html-emoji-image
 
 [emoji-to-gemoji]: https://github.com/jackycute/remark-emoji-to-gemoji
-
-[contributing]: https://github.com/remarkjs/remark/blob/master/contributing.md
-
-[coc]: https://github.com/remarkjs/remark/blob/master/code-of-conduct.md
