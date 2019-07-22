@@ -81,6 +81,12 @@ in pedantic mode.
 >
 > Although, GitHub itself doesn’t care: `:heavy\_check\_mark:`.
 
+## Security
+
+Use of `remark-gemoji` does not involve [**rehype**][rehype]
+([**hast**][hast]) or user content so there are no openings for
+[cross-site scripting (XSS)][xss] attacks.
+
 ## Related
 
 *   [`remark-gemoji-to-emoji`][gemoji-to-emoji]
@@ -155,3 +161,9 @@ abide by its terms.
 [html-emoji-image]: https://github.com/jackycute/remark-html-emoji-image
 
 [emoji-to-gemoji]: https://github.com/jackycute/remark-emoji-to-gemoji
+
+[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
+[rehype]: https://github.com/rehypejs/rehype
+
+[hast]: https://github.com/syntax-tree/hast
