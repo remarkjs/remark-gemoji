@@ -1,6 +1,6 @@
 'use strict'
 
-var byName = require('gemoji').name
+var gemoji2emoji = require('gemoji/name-to-emoji')
 
 module.exports = gemoji
 
@@ -44,7 +44,7 @@ function tokenize(eat, value, silent) {
 
   subvalue = value.slice(1, pos)
 
-  if (!own.call(byName, subvalue)) {
+  if (!own.call(gemoji2emoji, subvalue)) {
     return
   }
 
