@@ -5,12 +5,10 @@ var unified = require('unified')
 var parse = require('remark-parse')
 var gemoji = require('.')
 
-test('remark-gemoji', function(t) {
+test('remark-gemoji', function (t) {
   t.throws(
-    function() {
-      unified()
-        .use(gemoji)
-        .freeze()
+    function () {
+      unified().use(gemoji).freeze()
     },
     /^Error: Missing parser to attach `remark-gemoji` to/,
     'should throw if without parser'
