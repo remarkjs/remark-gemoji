@@ -8,7 +8,7 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**remark**][remark] plugin to parse turn gemoji shortcodes (`:+1:`) into emoji
+[**remark**][remark] plugin to turn gemoji shortcodes (`:+1:`) into emoji
 (`👍`).
 
 ## Note!
