@@ -11,6 +11,16 @@
 [**remark**][remark] plugin to parse turn gemoji shortcodes (`:+1:`) into emoji
 (`👍`).
 
+## Note!
+
+This plugin is ready for the new parser in remark
+([`micromark`](https://github.com/micromark/micromark),
+see [`remarkjs/remark#536`](https://github.com/remarkjs/remark/pull/536)).
+As remark no longer supports “pedantic” mode, this plugin is no longer needed.
+Hence, this plugin is rewritten to be useful again: it now maps gemoji
+shortcodes to emoji.
+This new plugin works with old and new remark.
+
 ## Install
 
 [npm][]:

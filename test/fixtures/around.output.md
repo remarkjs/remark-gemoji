@@ -40,7 +40,7 @@ After a colon :👏.
 
 After a semicolon ;👏.
 
-After a less than &lt;👏.
+After a less than <👏.
 
 After an equals to =👏.
 
@@ -54,7 +54,7 @@ After an upper case A👏.
 
 After a left square bracket \[👏.
 
-After a backslash \\👏.
+After a backslash 👏.
 
 After a right square bracket ]👏.
 
@@ -114,7 +114,7 @@ Before a colon 👏:
 
 Before a semicolon 👏;
 
-Before a less than 👏&lt;
+Before a less than 👏<
 
 Before an equals to 👏=
 

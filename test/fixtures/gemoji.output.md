@@ -16,7 +16,7 @@ Families: 👨‍👨‍👦‍👦
 
 Long flags: 🏴󠁧󠁢󠁷󠁬󠁳󠁿, 🏴󠁧󠁢󠁳󠁣󠁴󠁿, 🏴󠁧󠁢󠁥󠁮󠁧󠁿.
 
-In _😷_ emphasis.
+In *😷* emphasis.
 
 In **😷** strong.
 
@@ -33,11 +33,9 @@ In [x](https://:mask:) a destination.
 In [x](x ":mask:") a title.
 
 ```:mask: in the info
-
 ```
 
 ```in the :mask: meta
-
 ```
 
 [x]: #
