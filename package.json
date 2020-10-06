@@ -30,7 +30,7 @@
     "index.js"
   ],
   "dependencies": {
-    "gemoji": "^5.0.0",
+    "gemoji": "^6.0.0",
     "unist-util-visit": "^2.0.0"
   },
   "devDependencies": {
