@@ -8,7 +8,8 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**remark**][remark] plugin to parse Gemoji shortcodes.
+[**remark**][remark] plugin to parse turn gemoji shortcodes (`:+1:`) into emoji
+(`👍`).
 
 ## Install
 
@@ -20,66 +21,55 @@ npm install remark-gemoji
 
 ## Use
 
-Say `example.js` looks as follows (note: `remark-gemoji` isn’t used):
+Say we have the following file, `example.md`:
+
+```markdown
+Thumbs up: :+1:, thumbs down: :-1:.
+
+Families: :family_man_man_boy_boy:
+
+Long flags: :wales:, :scotland:, :england:.
+```
+
+And our script, `example.js`, looks as follows:
 
 ```js
+var vfile = require('to-vfile')
+var report = require('vfile-reporter')
 var unified = require('unified')
 var parse = require('remark-parse')
+var gemoji = require('remark-gemoji')
+var stringify = require('remark-stringify')
 
-var tree = unified()
-  .use(parse, {pedantic: true, position: false})
-  .parse(':heavy_check_mark:')
-
-console.dir(tree, {depth: null})
+unified()
+  .use(parse)
+  .use(gemoji)
+  .use(stringify)
+  .process(vfile.readSync('example.md'), function (err, file) {
+    console.error(report(err || file))
+    console.log(String(file))
+  })
 ```
 
-Running `node example` yields:
+Now, running `node example` yields:
 
-```js
-{ type: 'root',
-  children:
-   [ { type: 'paragraph',
-       children:
-        [ { type: 'text', value: ':heavy' },
-          { type: 'emphasis',
-            children: [ { type: 'text', value: 'check' } ] },
-          { type: 'text', value: 'mark:' } ] } ] }
+```text
+example.md: no issues found
 ```
 
-If we now add `remark-gemoji` by applying the following diff to `example.js`:
+```markdown
+Thumbs up: 👍, thumbs down: 👎.
 
-```diff
- var parse = require('remark-parse')
-+var gemoji = require('remark-gemoji')
+Families: 👨‍👨‍👦‍👦
 
- var tree = unified()
-   .use(parse, {pedantic: true, position: false})
-+  .use(gemoji)
-   .parse(':heavy_check_mark:')
-```
-
-If we now run `node example` again, you’ll see the following:
-
-```js
-{ type: 'root',
-  children:
-   [ { type: 'paragraph',
-       children: [ { type: 'text', value: ':heavy_check_mark:' } ] } ] }
+Long flags: 🏴󠁧󠁢󠁷󠁬󠁳󠁿, 🏴󠁧󠁢󠁳󠁣󠁴󠁿, 🏴󠁧󠁢󠁥󠁮󠁧󠁿.
 ```
 
 ## API
 
 ### `remark().use(gemoji)`
 
-Plugin to parse Gemoji shortcodes.
-This doesn’t do much other than creating whole [**Text**][text] nodes for
-Gemoji, and ensuring Gemoji shortcodes with underscores are not seen as emphasis
-in pedantic mode.
-
-> **Note**: when compiling, `pedantic` must be false!
-> Otherwise, the underscores in Gemoji shortcodes are still escaped.
->
-> Although, GitHub itself doesn’t care: `:heavy\_check\_mark:`.
+Plugin to turn Gemoji shortcodes into emoji.
 
 ## Security
 
@@ -89,12 +79,16 @@ Use of `remark-gemoji` does not involve [**rehype**][rehype]
 
 ## Related
 
-*   [`remark-gemoji-to-emoji`][gemoji-to-emoji]
-    — Transform gemoji shortcodes into emoji unicodes
-*   [`remark-html-emoji-image`][html-emoji-image]
-    — Transform emoji unicodes into html images
-*   [`remark-emoji-to-gemoji`][emoji-to-gemoji]
-    — Transform emoji unicodes into gemoji shortcodes
+*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+    — GitHub Flavored Markdown
+*   [`remark-github`](https://github.com/remarkjs/remark-github)
+    — Auto-link references like in GitHub issues, PRs, and comments
+*   [`remark-footnotes`](https://github.com/remarkjs/remark-footnotes)
+    — Footnotes
+*   [`remark-frontmatter`](https://github.com/remarkjs/remark-frontmatter)
+    — Frontmatter (YAML, TOML, and more) support
+*   [`remark-math`](https://github.com/rokt33r/remark-math)
+    — Math
 
 ## Contribute
 
@@ -153,14 +147,6 @@ abide by its terms.
 [author]: https://wooorm.com
 
 [remark]: https://github.com/remarkjs/remark
-
-[text]: https://github.com/syntax-tree/mdast#textnode
-
-[gemoji-to-emoji]: https://github.com/jackycute/remark-gemoji-to-emoji
-
-[html-emoji-image]: https://github.com/jackycute/remark-html-emoji-image
-
-[emoji-to-gemoji]: https://github.com/jackycute/remark-emoji-to-gemoji
 
 [xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
 

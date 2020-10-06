@@ -30,27 +30,27 @@
     "index.js"
   ],
   "dependencies": {
-    "gemoji": "^5.0.0"
+    "gemoji": "^5.0.0",
+    "unist-util-visit": "^2.0.0"
   },
   "devDependencies": {
     "browserify": "^16.0.0",
     "nyc": "^15.0.0",
     "prettier": "^2.0.0",
+    "remark": "^12.0.0",
     "remark-cli": "^8.0.0",
-    "remark-parse": "^8.0.0",
     "remark-preset-wooorm": "^7.0.0",
     "tape": "^5.0.0",
-    "tinyify": "^2.0.0",
-    "unified": "^9.0.0",
-    "xo": "^0.32.0"
+    "tinyify": "^3.0.0",
+    "xo": "^0.33.0"
   },
   "scripts": {
-    "format": "remark . -qfo && prettier . --write && xo --fix",
+    "format": "remark . -qfo --ignore-pattern test && prettier . --write && xo --fix",
     "build-bundle": "browserify . -s remarkGemoji > remark-gemoji.js",
     "build-mangle": "browserify . -s remarkGemoji -p tinyify > remark-gemoji.min.js",
     "build": "npm run build-bundle && npm run build-mangle",
     "test-api": "node test",
-    "test-coverage": "nyc --reporter lcov tape test.js",
+    "test-coverage": "nyc --reporter lcov tape test/index.js",
     "test": "npm run format && npm run build && npm run test-coverage"
   },
   "nyc": {
@@ -70,6 +70,11 @@
   "xo": {
     "prettier": true,
     "esnext": false,
+    "rules": {
+      "unicorn/explicit-length-check": "off",
+      "unicorn/no-fn-reference-in-iterator": "off",
+      "unicorn/prefer-optional-catch-binding": "off"
+    },
     "ignores": [
       "remark-gemoji.js"
     ]

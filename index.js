@@ -1,70 +1,51 @@
 'use strict'
 
 var gemoji2emoji = require('gemoji/name-to-emoji')
+var visit = require('unist-util-visit')
 
 module.exports = gemoji
 
-var colon = ':'
+var find = /:(\+1|[-\w]+):/g
+
 var own = {}.hasOwnProperty
 
-tokenize.locator = locate
-
 function gemoji() {
-  var parser = this.Parser
-  var proto
-
-  if (!isRemarkParser(parser)) {
-    throw new Error('Missing parser to attach `remark-gemoji` to')
-  }
-
-  proto = this.Parser.prototype
-
-  proto.inlineTokenizers.gemojiShortCode = tokenize
-  proto.inlineMethods.splice(
-    proto.inlineMethods.indexOf('strong'),
-    0,
-    'gemojiShortCode'
-  )
+  return transform
 }
 
-function tokenize(eat, value, silent) {
-  var subvalue
-  var pos
-
-  // Check if we are at a shortcode.
-  if (value.charAt(0) !== colon) {
-    return
-  }
-
-  pos = value.indexOf(colon, 1)
-
-  if (pos === -1) {
-    return
-  }
-
-  subvalue = value.slice(1, pos)
-
-  if (!own.call(gemoji2emoji, subvalue)) {
-    return
-  }
-
-  /* istanbul ignore if - Yup, it’s a shortcode.  Exit with true in silent mode. */
-  if (silent) {
-    return true
-  }
-
-  // Eat a text.
-  subvalue = colon + subvalue + colon
-
-  return eat(subvalue)({type: 'text', value: subvalue})
+function transform(tree) {
+  visit(tree, 'text', ontext)
 }
 
-function locate(value, fromIndex) {
-  return value.indexOf(colon, fromIndex)
-}
+function ontext(node) {
+  var value = node.value
+  var slices = []
+  var start = 0
+  var match
+  var position
 
-function isRemarkParser(parser) {
-  return Boolean(
-    parser && parser.prototype && parser.prototype.inlineTokenizers
-  )
+  find.lastIndex = 0
+  match = find.exec(value)
+
+  while (match) {
+    position = match.index
+
+    if (own.call(gemoji2emoji, match[1])) {
+      if (start !== position) {
+        slices.push(value.slice(start, position))
+      }
+
+      slices.push(gemoji2emoji[match[1]])
+      start = position + match[0].length
+    } else {
+      find.lastIndex = position + 1
+    }
+
+    match = find.exec(value)
+  }
+
+  if (slices.length) {
+    slices.push(value.slice(start))
+    node.value = slices.join('')
+  }
 }
