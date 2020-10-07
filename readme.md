@@ -97,7 +97,7 @@ Use of `remark-gemoji` does not involve [**rehype**][rehype]
     — Footnotes
 *   [`remark-frontmatter`](https://github.com/remarkjs/remark-frontmatter)
     — Frontmatter (YAML, TOML, and more) support
-*   [`remark-math`](https://github.com/rokt33r/remark-math)
+*   [`remark-math`](https://github.com/remarkjs/remark-math)
     — Math
 
 ## Contribute
