@@ -20,6 +20,7 @@ test('remark-gemoji', (t) => {
     const outputPath = path
       .join(base, basename)
       .replace(/\.input\./, '.output.')
+    /** @type {string} */
     let expected
 
     try {
@@ -37,7 +38,9 @@ test('remark-gemoji', (t) => {
 })
 
 test('gemoji', (t) => {
+  /** @type {keyof nameToEmoji} */
   let name
+
   for (name in nameToEmoji) {
     if (own.call(nameToEmoji, name)) {
       t.equal(
