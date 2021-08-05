@@ -1,5 +1,2 @@
 coverage/
-remark-gemoji.js
-remark-gemoji.min.js
-*.json
 *.md
