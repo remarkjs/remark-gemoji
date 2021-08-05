@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import test from 'tape'
 import {nameToEmoji} from 'gemoji'
-import remark from 'remark'
+import {remark} from 'remark'
 import gemoji from '../index.js'
 
 test('remark-gemoji', function (t) {
