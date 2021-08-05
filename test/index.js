@@ -1,14 +1,12 @@
-'use strict'
-
-var fs = require('fs')
-var path = require('path')
-var test = require('tape')
-var gemoji2emoji = require('gemoji/name-to-emoji')
-var remark = require('remark')
-var gemoji = require('..')
+import fs from 'fs'
+import path from 'path'
+import test from 'tape'
+import {nameToEmoji} from 'gemoji'
+import remark from 'remark'
+import gemoji from '../index.js'
 
 test('remark-gemoji', function (t) {
-  var base = path.join(__dirname, 'fixtures')
+  var base = path.join('test', 'fixtures')
 
   fs.readdirSync(base)
     .filter((basename) => /\.input\.md$/.test(basename))
@@ -35,7 +33,7 @@ test('remark-gemoji', function (t) {
 })
 
 test('gemoji', function (t) {
-  Object.keys(gemoji2emoji).forEach(each)
+  Object.keys(nameToEmoji).forEach(each)
 
   t.end()
 
@@ -47,9 +45,9 @@ test('gemoji', function (t) {
         .toString(),
       'Lorem ' +
         (name === 'asterisk' ? '\\' : '') +
-        gemoji2emoji[name] +
+        nameToEmoji[name] +
         ' ipsum.\n',
-      '`:' + name + ':` > `' + gemoji2emoji[name] + '`'
+      '`:' + name + ':` > `' + nameToEmoji[name] + '`'
     )
   }
 })

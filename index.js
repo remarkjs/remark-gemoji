@@ -1,15 +1,11 @@
-'use strict'
-
-var gemoji2emoji = require('gemoji/name-to-emoji')
-var visit = require('unist-util-visit')
-
-module.exports = gemoji
+import {nameToEmoji} from 'gemoji'
+import visit from 'unist-util-visit'
 
 var find = /:(\+1|[-\w]+):/g
 
 var own = {}.hasOwnProperty
 
-function gemoji() {
+export default function remarkGemoji() {
   return transform
 }
 
@@ -30,12 +26,12 @@ function ontext(node) {
   while (match) {
     position = match.index
 
-    if (own.call(gemoji2emoji, match[1])) {
+    if (own.call(nameToEmoji, match[1])) {
       if (start !== position) {
         slices.push(value.slice(start, position))
       }
 
-      slices.push(gemoji2emoji[match[1]])
+      slices.push(nameToEmoji[match[1]])
       start = position + match[0].length
     } else {
       find.lastIndex = position + 1
