@@ -1,5 +1,5 @@
 import {nameToEmoji} from 'gemoji'
-import visit from 'unist-util-visit'
+import {visit} from 'unist-util-visit'
 
 var find = /:(\+1|[-\w]+):/g
 
