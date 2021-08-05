@@ -5,49 +5,54 @@ import {nameToEmoji} from 'gemoji'
 import {remark} from 'remark'
 import gemoji from '../index.js'
 
-test('remark-gemoji', function (t) {
-  var base = path.join('test', 'fixtures')
+const own = {}.hasOwnProperty
 
-  fs.readdirSync(base)
+test('remark-gemoji', (t) => {
+  const base = path.join('test', 'fixtures')
+  const files = fs
+    .readdirSync(base)
     .filter((basename) => /\.input\.md$/.test(basename))
-    .forEach(each)
+  let index = -1
 
-  t.end()
-
-  function each(basename) {
-    var input = String(fs.readFileSync(path.join(base, basename)))
-    var outputPath = path.join(base, basename).replace(/\.input\./, '.output.')
-    var expected
-    var actual
+  while (++index < files.length) {
+    const basename = files[index]
+    const input = String(fs.readFileSync(path.join(base, basename)))
+    const outputPath = path
+      .join(base, basename)
+      .replace(/\.input\./, '.output.')
+    let expected
 
     try {
       expected = String(fs.readFileSync(outputPath))
-    } catch (_) {
+    } catch {
       expected = input
     }
 
-    actual = remark().use(gemoji).processSync(input).toString()
+    const actual = remark().use(gemoji).processSync(input).toString()
 
     t.equal(actual, expected, basename)
   }
-})
-
-test('gemoji', function (t) {
-  Object.keys(nameToEmoji).forEach(each)
 
   t.end()
+})
 
-  function each(name) {
-    t.equal(
-      remark()
-        .use(gemoji)
-        .processSync('Lorem :' + name + ': ipsum.')
-        .toString(),
-      'Lorem ' +
-        (name === 'asterisk' ? '\\' : '') +
-        nameToEmoji[name] +
-        ' ipsum.\n',
-      '`:' + name + ':` > `' + nameToEmoji[name] + '`'
-    )
+test('gemoji', (t) => {
+  let name
+  for (name in nameToEmoji) {
+    if (own.call(nameToEmoji, name)) {
+      t.equal(
+        remark()
+          .use(gemoji)
+          .processSync('Lorem :' + name + ': ipsum.')
+          .toString(),
+        'Lorem ' +
+          (name === 'asterisk' ? '\\' : '') +
+          nameToEmoji[name] +
+          ' ipsum.\n',
+        '`:' + name + ':` > `' + nameToEmoji[name] + '`'
+      )
+    }
   }
+
+  t.end()
 })

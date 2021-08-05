@@ -1,9 +1,9 @@
 import {nameToEmoji} from 'gemoji'
 import {visit} from 'unist-util-visit'
 
-var find = /:(\+1|[-\w]+):/g
+const find = /:(\+1|[-\w]+):/g
 
-var own = {}.hasOwnProperty
+const own = {}.hasOwnProperty
 
 export default function remarkGemoji() {
   return transform
@@ -14,17 +14,14 @@ function transform(tree) {
 }
 
 function ontext(node) {
-  var value = node.value
-  var slices = []
-  var start = 0
-  var match
-  var position
-
+  const value = node.value
+  const slices = []
   find.lastIndex = 0
-  match = find.exec(value)
+  let match = find.exec(value)
+  let start = 0
 
   while (match) {
-    position = match.index
+    const position = match.index
 
     if (own.call(nameToEmoji, match[1])) {
       if (start !== position) {
@@ -40,7 +37,7 @@ function ontext(node) {
     match = find.exec(value)
   }
 
-  if (slices.length) {
+  if (slices.length > 0) {
     slices.push(value.slice(start))
     node.value = slices.join('')
   }
