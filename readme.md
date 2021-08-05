@@ -23,6 +23,9 @@ This new plugin works with old and new remark.
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -44,19 +47,22 @@ Long flags: :wales:, :scotland:, :england:.
 And our script, `example.js`, looks as follows:
 
 ```js
-var vfile = require('to-vfile')
-var report = require('vfile-reporter')
-var unified = require('unified')
-var parse = require('remark-parse')
-var gemoji = require('remark-gemoji')
-var stringify = require('remark-stringify')
+import {readSync} from 'to-vfile'
+import {reporter} from 'vfile-reporter'
+import {unified} from 'unified'
+import remarkParse from 'remark-parse'
+import remarkGemoji from 'remark-gemoji'
+import remarkStringify from 'remark-stringify'
+
+const file = readSync('example.md')
 
 unified()
-  .use(parse)
-  .use(gemoji)
-  .use(stringify)
-  .process(vfile.readSync('example.md'), function (err, file) {
-    console.error(report(err || file))
+  .use(remarkParse)
+  .use(remarkGemoji)
+  .use(remarkStringify)
+  .process(file)
+  .then((file) => {
+    console.error(reporter(file))
     console.log(String(file))
   })
 ```
@@ -77,7 +83,10 @@ Long flags: 🏴󠁧󠁢󠁷󠁬󠁳󠁿, 🏴󠁧󠁢󠁳󠁣󠁴󠁿, 🏴󠁧
 
 ## API
 
-### `remark().use(gemoji)`
+This package exports no identifiers.
+The default export is `remarkGemoji`.
+
+### `unified().use(remarkGemoji)`
 
 Plugin to turn Gemoji shortcodes into emoji.
 
