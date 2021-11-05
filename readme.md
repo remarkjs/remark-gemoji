@@ -137,6 +137,16 @@ markdown (excluding code and such).
 If the value between the two colons matches a know gemoji shortcode, then its
 replaced by the corresponding emoji.
 
+In EBNF, the grammar looks as follows:
+
+<pre><code class=language=ebnf><a id=s-gemoji href=#s-gemoji>gemoji</a> ::=  ':' ('+' '1' | Character+) ':'
+<a id=s-character href=#s-character>character</a> ::= '-' | '_' | <a href=#s-letter>letter</a> | <a href=#s-digit>digit</a>
+<a id=s-letter href=#s-letter>letter</a> ::= <a href=#s-lowercase>lowercase</a> | <a href=#s-uppercase>uppercase</a>
+<a id=s-lowercase href=#s-lowercase>letterLowercase</a> ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
+<a id=s-uppercase href=#s-uppercase>letterUppercase</a> ::= 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z'
+<a id=s-digit href=#s-digit>digit</a> ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+</code></pre>
+
 ## Types
 
 This package is fully typed with [TypeScript][].
