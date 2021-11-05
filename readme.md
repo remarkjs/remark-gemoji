@@ -8,77 +8,116 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**remark**][remark] plugin to turn gemoji shortcodes (`:+1:`) into emoji
-(`👍`).
+**[remark][]** plugin to turn gemoji shortcodes (`:+1:`) into emoji (`👍`).
 
-## Note!
+## Contents
 
-This plugin is ready for the new parser in remark
-([`micromark`](https://github.com/micromark/micromark),
-see [`remarkjs/remark#536`](https://github.com/remarkjs/remark/pull/536)).
-As remark no longer supports “pedantic” mode, this plugin is no longer needed.
-Hence, this plugin is rewritten to be useful again: it now maps gemoji
-shortcodes to emoji.
-This new plugin works with old and new remark.
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`unified().use(remarkGemoji)`](#unifieduseremarkgemoji)
+*   [Syntax](#syntax)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Security](#security)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This package is a [unified][] ([remark][]) plugin to turn gemoji shortcodes into
+emoji.
+
+**unified** is a project that transforms content with abstract syntax trees
+(ASTs).
+**remark** adds support for markdown to unified.
+**mdast** is the markdown AST that remark uses.
+This is a remark plugin that transforms mdast.
+
+## When should I use this?
+
+You can use this plugin to match how GitHub turns gemoji (**G**itHub **E**moji)
+shortcodes into emoji.
+This plugin does not support other platforms such as Slack and what labels they
+support.
+
+A different plugin, [`remark-gfm`][remark-gfm], adds support for GFM (GitHub
+Flavored Markdown).
+GFM is a set of extensions (autolink literals, footnotes, strikethrough, tables,
+and tasklists) to markdown that are supported everywhere on GitHub.
+
+Another plugin, [`remark-frontmatter`][remark-frontmatter], adds support for
+YAML frontmatter.
+GitHub supports frontmatter for files in Gists and repos.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 
 ```sh
 npm install remark-gemoji
 ```
 
+In Deno with [Skypack][]:
+
+```js
+import remarkGemoji from 'https://cdn.skypack.dev/remark-gemoji@7?dts'
+```
+
+In browsers with [Skypack][]:
+
+```html
+<script type="module">
+  import remarkGemoji from 'https://cdn.skypack.dev/remark-gemoji@7?min'
+</script>
+```
+
 ## Use
 
-Say we have the following file, `example.md`:
+Say we have the following file `example.md`:
 
 ```markdown
 Thumbs up: :+1:, thumbs down: :-1:.
 
 Families: :family_man_man_boy_boy:
 
-Long flags: :wales:, :scotland:, :england:.
+Some flags: :wales:, :scotland:, :england:.
 ```
 
-And our script, `example.js`, looks as follows:
+And our module `example.js` looks as follows:
 
 ```js
-import {readSync} from 'to-vfile'
-import {reporter} from 'vfile-reporter'
+import {read} from 'to-vfile'
 import {unified} from 'unified'
 import remarkParse from 'remark-parse'
 import remarkGemoji from 'remark-gemoji'
 import remarkStringify from 'remark-stringify'
 
-const file = readSync('example.md')
+main()
 
-unified()
-  .use(remarkParse)
-  .use(remarkGemoji)
-  .use(remarkStringify)
-  .process(file)
-  .then((file) => {
-    console.error(reporter(file))
-    console.log(String(file))
-  })
+async function main() {
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkGemoji)
+    .use(remarkStringify)
+    .process(await read('example.md'))
+
+  console.log(String(file))
+}
 ```
 
-Now, running `node example` yields:
-
-```text
-example.md: no issues found
-```
+Now running `node example.js` yields:
 
 ```markdown
 Thumbs up: 👍, thumbs down: 👎.
 
 Families: 👨‍👨‍👦‍👦
 
-Long flags: 🏴󠁧󠁢󠁷󠁬󠁳󠁿, 🏴󠁧󠁢󠁳󠁣󠁴󠁿, 🏴󠁧󠁢󠁥󠁮󠁧󠁿.
+Some flags: 🏴󠁧󠁢󠁷󠁬󠁳󠁿, 🏴󠁧󠁢󠁳󠁣󠁴󠁿, 🏴󠁧󠁢󠁥󠁮󠁧󠁿.
 ```
 
 ## API
@@ -88,24 +127,47 @@ The default export is `remarkGemoji`.
 
 ### `unified().use(remarkGemoji)`
 
-Plugin to turn Gemoji shortcodes into emoji.
+Plugin to turn gemoji shortcodes (`:+1:`) into emoji (`👍`).
+There are no options.
+
+## Syntax
+
+This plugin looks for the regular expression `/:(\+1|[-\w]+):/g` in text in
+markdown (excluding code and such).
+If the value between the two colons matches a know gemoji shortcode, then its
+replaced by the corresponding emoji.
+
+## Types
+
+This package is fully typed with [TypeScript][].
+There are no extra exported types.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
+
+This plugin works with `unified` version 3+ and `remark` version 4+.
 
 ## Security
 
-Use of `remark-gemoji` does not involve [**rehype**][rehype]
-([**hast**][hast]) or user content so there are no openings for
-[cross-site scripting (XSS)][xss] attacks.
+Use of `remark-gemoji` does not involve **[rehype][]** (**[hast][]**) or user
+content so there are no openings for [cross-site scripting (XSS)][xss] attacks.
 
 ## Related
 
 *   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — GitHub Flavored Markdown
+    — support GFM (autolink literals, footnotes, strikethrough, tables,
+    tasklists)
 *   [`remark-github`](https://github.com/remarkjs/remark-github)
-    — Auto-link references like in GitHub issues, PRs, and comments
+    — link references to commits, issues, pull-requests, and users, like on
+    GitHub
+*   [`remark-breaks`](https://github.com/remarkjs/remark-frontmatter)
+    — support hard breaks without needing spaces or escapes
 *   [`remark-frontmatter`](https://github.com/remarkjs/remark-frontmatter)
-    — Frontmatter (YAML, TOML, and more) support
-*   [`remark-math`](https://github.com/remarkjs/remark-math)
-    — Math
+    — support frontmatter (YAML, TOML, and more)
 
 ## Contribute
 
@@ -151,6 +213,8 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[skypack]: https://www.skypack.dev
+
 [health]: https://github.com/remarkjs/.github
 
 [contributing]: https://github.com/remarkjs/.github/blob/HEAD/contributing.md
@@ -165,8 +229,16 @@ abide by its terms.
 
 [remark]: https://github.com/remarkjs/remark
 
+[unified]: https://github.com/unifiedjs/unified
+
 [xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
+[typescript]: https://www.typescriptlang.org
 
 [rehype]: https://github.com/rehypejs/rehype
 
 [hast]: https://github.com/syntax-tree/hast
+
+[remark-gfm]: https://github.com/remarkjs/remark-gfm
+
+[remark-frontmatter]: https://github.com/remarkjs/remark-frontmatter
