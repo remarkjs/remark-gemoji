@@ -139,7 +139,7 @@ replaced by the corresponding emoji.
 
 In EBNF, the grammar looks as follows:
 
-<pre><code class=language=ebnf><a id=s-gemoji href=#s-gemoji>gemoji</a> ::=  ':' ('+' '1' | <a href=#s-character>character</a>+) ':'
+<pre><code class=language-ebnf><a id=s-gemoji href=#s-gemoji>gemoji</a> ::=  ':' ('+' '1' | <a href=#s-character>character</a>+) ':'
 <a id=s-character href=#s-character>character</a> ::= '-' | '_' | <a href=#s-letter>letter</a> | <a href=#s-digit>digit</a>
 <a id=s-letter href=#s-letter>letter</a> ::= <a href=#s-letter-lowercase>letterLowercase</a> | <a href=#s-letter-uppercase>letterUppercase</a>
 <a id=s-letter-lowercase href=#s-letter-lowercase>letterLowercase</a> ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z'
