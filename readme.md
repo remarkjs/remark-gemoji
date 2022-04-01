@@ -62,17 +62,17 @@ In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 npm install remark-gemoji
 ```
 
-In Deno with [Skypack][]:
+In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import remarkGemoji from 'https://cdn.skypack.dev/remark-gemoji@7?dts'
+import remarkGemoji from 'https://esm.sh/remark-gemoji@7'
 ```
 
-In browsers with [Skypack][]:
+In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import remarkGemoji from 'https://cdn.skypack.dev/remark-gemoji@7?min'
+  import remarkGemoji from 'https://esm.sh/remark-gemoji@7?bundle'
 </script>
 ```
 
@@ -223,7 +223,7 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
-[skypack]: https://www.skypack.dev
+[esmsh]: https://esm.sh
 
 [health]: https://github.com/remarkjs/.github
 
