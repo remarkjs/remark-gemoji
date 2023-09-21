@@ -1,6 +1,6 @@
 {
   "name": "remark-gemoji",
-  "version": "7.0.1",
+  "version": "8.0.0",
   "description": "remark plugin to turn gemoji shortcodes (`:+1:`) into emoji (`👍`)",
   "license": "MIT",
   "keywords": [

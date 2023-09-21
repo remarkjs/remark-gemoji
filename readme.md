@@ -59,14 +59,14 @@ npm install remark-gemoji
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import remarkGemoji from 'https://esm.sh/remark-gemoji@7'
+import remarkGemoji from 'https://esm.sh/remark-gemoji@8'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import remarkGemoji from 'https://esm.sh/remark-gemoji@7?bundle'
+  import remarkGemoji from 'https://esm.sh/remark-gemoji@8?bundle'
 </script>
 ```
 
