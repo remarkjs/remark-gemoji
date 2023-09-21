@@ -6,7 +6,37 @@ import {nameToEmoji} from 'gemoji'
 import {remark} from 'remark'
 import remarkGemoji from '../index.js'
 
-const own = {}.hasOwnProperty
+test('remarkGemoji', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('../index.js')).sort(), [
+      'default'
+    ])
+  })
+
+  /** @type {string} */
+  let name
+
+  for (name in nameToEmoji) {
+    if (Object.hasOwn(nameToEmoji, name)) {
+      await t.test(
+        '`:' + name + ':` > `' + nameToEmoji[name] + '`',
+        async function () {
+          assert.equal(
+            String(
+              await remark()
+                .use(remarkGemoji)
+                .process('Lorem :' + name + ': ipsum.')
+            ),
+            'Lorem ' +
+              (name === 'asterisk' ? '\\' : '') +
+              nameToEmoji[name] +
+              ' ipsum.\n'
+          )
+        }
+      )
+    }
+  }
+})
 
 test('fixtures', async function (t) {
   const base = new URL('fixtures/', import.meta.url)
@@ -43,31 +73,5 @@ test('fixtures', async function (t) {
 
       assert.equal(actual, String(output))
     })
-  }
-})
-
-test('gemoji', async function (t) {
-  /** @type {string} */
-  let name
-
-  for (name in nameToEmoji) {
-    if (own.call(nameToEmoji, name)) {
-      await t.test(
-        '`:' + name + ':` > `' + nameToEmoji[name] + '`',
-        async function () {
-          assert.equal(
-            String(
-              await remark()
-                .use(remarkGemoji)
-                .processSync('Lorem :' + name + ': ipsum.')
-            ),
-            'Lorem ' +
-              (name === 'asterisk' ? '\\' : '') +
-              nameToEmoji[name] +
-              ' ipsum.\n'
-          )
-        }
-      )
-    }
   }
 })
