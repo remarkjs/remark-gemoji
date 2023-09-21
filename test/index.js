@@ -1,61 +1,73 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import test from 'tape'
+import assert from 'node:assert/strict'
+import fs from 'node:fs/promises'
+import process from 'node:process'
+import test from 'node:test'
 import {nameToEmoji} from 'gemoji'
 import {remark} from 'remark'
-import gemoji from '../index.js'
+import remarkGemoji from '../index.js'
 
 const own = {}.hasOwnProperty
 
-test('remark-gemoji', (t) => {
-  const base = path.join('test', 'fixtures')
-  const files = fs
-    .readdirSync(base)
-    .filter((basename) => /\.input\.md$/.test(basename))
+test('fixtures', async function (t) {
+  const base = new URL('fixtures/', import.meta.url)
+  const folders = await fs.readdir(base)
+
   let index = -1
 
-  while (++index < files.length) {
-    const basename = files[index]
-    const input = String(fs.readFileSync(path.join(base, basename)))
-    const outputPath = path
-      .join(base, basename)
-      .replace(/\.input\./, '.output.')
-    /** @type {string} */
-    let expected
+  while (++index < folders.length) {
+    const folder = folders[index]
 
-    try {
-      expected = String(fs.readFileSync(outputPath))
-    } catch {
-      expected = input
-    }
+    if (folder.startsWith('.')) continue
 
-    const actual = remark().use(gemoji).processSync(input).toString()
+    await t.test(folder, async function () {
+      const folderUrl = new URL(folder + '/', base)
+      const inputUrl = new URL('input.md', folderUrl)
+      const outputUrl = new URL('output.md', folderUrl)
 
-    t.equal(actual, expected, basename)
+      const input = String(await fs.readFile(inputUrl))
+      const actual = String(await remark().use(remarkGemoji).process(input))
+
+      /** @type {string} */
+      let output
+
+      try {
+        if ('UPDATE' in process.env) {
+          throw new Error('Updating…')
+        }
+
+        output = String(await fs.readFile(outputUrl))
+      } catch {
+        output = actual
+        await fs.writeFile(outputUrl, actual)
+      }
+
+      assert.equal(actual, String(output))
+    })
   }
-
-  t.end()
 })
 
-test('gemoji', (t) => {
-  /** @type {keyof nameToEmoji} */
+test('gemoji', async function (t) {
+  /** @type {string} */
   let name
 
   for (name in nameToEmoji) {
     if (own.call(nameToEmoji, name)) {
-      t.equal(
-        remark()
-          .use(gemoji)
-          .processSync('Lorem :' + name + ': ipsum.')
-          .toString(),
-        'Lorem ' +
-          (name === 'asterisk' ? '\\' : '') +
-          nameToEmoji[name] +
-          ' ipsum.\n',
-        '`:' + name + ':` > `' + nameToEmoji[name] + '`'
+      await t.test(
+        '`:' + name + ':` > `' + nameToEmoji[name] + '`',
+        async function () {
+          assert.equal(
+            String(
+              await remark()
+                .use(remarkGemoji)
+                .processSync('Lorem :' + name + ': ipsum.')
+            ),
+            'Lorem ' +
+              (name === 'asterisk' ? '\\' : '') +
+              nameToEmoji[name] +
+              ' ipsum.\n'
+          )
+        }
       )
     }
   }
-
-  t.end()
 })
