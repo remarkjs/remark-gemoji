@@ -31,12 +31,6 @@
 This package is a [unified][] ([remark][]) plugin to turn gemoji shortcodes into
 emoji.
 
-**unified** is a project that transforms content with abstract syntax trees
-(ASTs).
-**remark** adds support for markdown to unified.
-**mdast** is the markdown AST that remark uses.
-This is a remark plugin that transforms mdast.
-
 ## When should I use this?
 
 You can use this plugin to match how GitHub turns gemoji (**G**itHub **E**moji)
@@ -55,8 +49,8 @@ GitHub supports frontmatter for files in Gists and repos.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+This package is [ESM only][esm].
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install remark-gemoji
@@ -81,54 +75,57 @@ In browsers with [`esm.sh`][esmsh]:
 Say we have the following file `example.md`:
 
 ```markdown
-Thumbs up: :+1:, thumbs down: :-1:.
+Look, the moon :new_moon_with_face:
 
-Families: :family_man_man_boy_boy:
+Here’s a family :family_man_man_boy_boy:
 
-Some flags: :wales:, :scotland:, :england:.
+Слава Україні!  :ukraine:
 ```
 
-And our module `example.js` looks as follows:
+…and a module `example.js`:
 
 ```js
+import remarkGemoji from 'remark-gemoji'
+import remarkParse from 'remark-parse'
+import remarkStringify from 'remark-stringify'
 import {read} from 'to-vfile'
 import {unified} from 'unified'
-import remarkParse from 'remark-parse'
-import remarkGemoji from 'remark-gemoji'
-import remarkStringify from 'remark-stringify'
 
-main()
+const file = await unified()
+  .use(remarkParse)
+  .use(remarkGemoji)
+  .use(remarkStringify)
+  .process(await read('example.md'))
 
-async function main() {
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkGemoji)
-    .use(remarkStringify)
-    .process(await read('example.md'))
-
-  console.log(String(file))
-}
+console.log(String(file))
 ```
 
-Now running `node example.js` yields:
+…then running `node example.js` yields:
 
 ```markdown
-Thumbs up: 👍, thumbs down: 👎.
+Look, the moon 🌚
 
-Families: 👨‍👨‍👦‍👦
+Here’s a family 👨‍👨‍👦‍👦
 
-Some flags: 🏴󠁧󠁢󠁷󠁬󠁳󠁿, 🏴󠁧󠁢󠁳󠁣󠁴󠁿, 🏴󠁧󠁢󠁥󠁮󠁧󠁿.
+Слава Україні!  🇺🇦
 ```
 
 ## API
 
 This package exports no identifiers.
-The default export is `remarkGemoji`.
+The default export is [`remarkGemoji`][api-remark-gemoji].
 
 ### `unified().use(remarkGemoji)`
 
-Plugin to turn gemoji shortcodes (`:+1:`) into emoji (`👍`).
-There are no options.
+Turn gemoji shortcodes (`:+1:`) into emoji (`👍`).
+
+###### Parameters
+
+There are no parameters.
+
+###### Returns
+
+Transform ([`Transformer`][unified-transformer]).
 
 ## Syntax
 
@@ -150,21 +147,25 @@ In EBNF, the grammar looks as follows:
 ## Types
 
 This package is fully typed with [TypeScript][].
-There are no extra exported types.
+It exports no additional types.
 
 ## Compatibility
 
-Projects maintained by the unified collective are compatible with all maintained
+Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `remark-gemoji@^7`,
+compatible with Node.js 12.
 
 This plugin works with `unified` version 3+ and `remark` version 4+.
 
 ## Security
 
 Use of `remark-gemoji` does not involve **[rehype][]** (**[hast][]**) or user
-content so there are no openings for [cross-site scripting (XSS)][xss] attacks.
+content so there are no openings for [cross-site scripting (XSS)][wiki-xss]
+attacks.
 
 ## Related
 
@@ -207,9 +208,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/remark-gemoji
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/remark-gemoji.svg
+[size-badge]: https://img.shields.io/bundlejs/size/remark-gemoji
 
-[size]: https://bundlephobia.com/result?p=remark-gemoji
+[size]: https://bundlejs.com/?q=remark-gemoji
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -223,32 +224,38 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
 [esmsh]: https://esm.sh
 
 [health]: https://github.com/remarkjs/.github
 
-[contributing]: https://github.com/remarkjs/.github/blob/HEAD/contributing.md
+[contributing]: https://github.com/remarkjs/.github/blob/main/contributing.md
 
-[support]: https://github.com/remarkjs/.github/blob/HEAD/support.md
+[support]: https://github.com/remarkjs/.github/blob/main/support.md
 
-[coc]: https://github.com/remarkjs/.github/blob/HEAD/code-of-conduct.md
+[coc]: https://github.com/remarkjs/.github/blob/main/code-of-conduct.md
 
 [license]: license
 
 [author]: https://wooorm.com
 
-[remark]: https://github.com/remarkjs/remark
-
-[unified]: https://github.com/unifiedjs/unified
-
-[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
-
-[typescript]: https://www.typescriptlang.org
+[hast]: https://github.com/syntax-tree/hast
 
 [rehype]: https://github.com/rehypejs/rehype
 
-[hast]: https://github.com/syntax-tree/hast
+[remark]: https://github.com/remarkjs/remark
+
+[remark-frontmatter]: https://github.com/remarkjs/remark-frontmatter
 
 [remark-gfm]: https://github.com/remarkjs/remark-gfm
 
-[remark-frontmatter]: https://github.com/remarkjs/remark-frontmatter
+[typescript]: https://www.typescriptlang.org
+
+[unified]: https://github.com/unifiedjs/unified
+
+[unified-transformer]: https://github.com/unifiedjs/unified#transformer
+
+[wiki-xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
+[api-remark-gemoji]: #unifieduseremarkgemoji
