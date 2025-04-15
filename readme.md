@@ -175,7 +175,7 @@ attacks.
 *   [`remark-github`](https://github.com/remarkjs/remark-github)
     — link references to commits, issues, pull-requests, and users, like on
     GitHub
-*   [`remark-breaks`](https://github.com/remarkjs/remark-frontmatter)
+*   [`remark-breaks`](https://github.com/remarkjs/remark-breaks)
     — support hard breaks without needing spaces or escapes
 *   [`remark-frontmatter`](https://github.com/remarkjs/remark-frontmatter)
     — support frontmatter (YAML, TOML, and more)
